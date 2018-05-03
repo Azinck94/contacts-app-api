@@ -27,14 +27,15 @@ mongoose.connect(dbConfig.url)
     process.exit();
 });
 
-
 //define simple route
-
 app.get('/', (req, res) => {
   res.json({"message": "Welcome to Andrew Z Contacts Application Submission"});
 });
 
-//listen for requests
+// Require Contacts routes
+require('./app/routes/contact.routes.js')(app);
+
+// Listen for requests
 app.listen(3000, () => {
   console.log("Sever is listening on port 3000");
 });
