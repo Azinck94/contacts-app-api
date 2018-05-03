@@ -12,6 +12,22 @@ app.use(bodyParser.urlencoded({ extended: true}))
 
 app.use(bodyParser.json())
 
+// Configure database
+const dbConfig = require('./config/database.config.js');
+const mongoose = require('mongoose');
+
+mongoose.Promise = global.Promise;
+
+// Connecting to the database
+mongoose.connect(dbConfig.url)
+.then(() => {
+    console.log("Successfully connected to database");
+}).catch(err => {
+    console.log('Failed connection to databas. Exiting now');
+    process.exit();
+});
+
+
 //define simple route
 
 app.get('/', (req, res) => {
