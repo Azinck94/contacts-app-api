@@ -63,10 +63,46 @@ exports.findOne = (req, res) => {
 
 // Update a contact identified by the contactId in the request
 exports.update = (req, res) => {
-
+  Contact.findById(req.params.contactId)
+      .then(contact => {
+          if(!contact) {
+              return res.status(404).send({
+                  message: "Contact not found with id " + req.params.contactId
+              });
+          }
+          res.send(contact);
+      }).catch(err => {
+          if(err.kind === 'ObjectId') {
+              return res.status(404).send({
+                  message: "Contact not found with id " + req.params.contactId
+              });
+          }
+          return res.status(500).send({
+              message: "Error fetching contact with id " + req.params.contactId
+          });
+      });
 };
 
 // Delete a contact with the specified contactId in the request
 exports.delete = (req, res) => {
-
+  //findByIdAndRemove is mongoose function equivalent to findOneAndRemove
+  // Uses id for queryand is passed a callback
+  Contact.findByIdAndRemove(req.params.contactId)
+  .then(contact => {
+    if(!contact) {
+      return res.status(404).send({
+        message: "Contact not found with id " + req.params.contactId
+      });
+    }
+    res.send({message: "Contact deleted successfully"});
+  }).catch(err => {
+    if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+      return res.status(404).send({
+        message: "Contact not found with id " + req.params.contactId
+      });
+    }
+    return res.status(500).send({
+      message: "Could not delete contact with id " + req.params.contactId
+    });
+  });
 };
