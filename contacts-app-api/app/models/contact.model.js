@@ -2,16 +2,8 @@ const mongoose = require('mongoose');
 
 const ContactSchema = mongoose.Schema({
   name: String,
-  number: {
-      work: String,
-      personal: String
-    },
-  address: {
-      number: String,
-      street: String,
-      state: String,
-      zip: String,
-    },
+  number: String,
+  address: String,
   company: String,
   birthdate: String,
   email: String,

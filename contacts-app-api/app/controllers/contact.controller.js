@@ -11,9 +11,11 @@ if(!req.body.content) {
 // Create new Contact
 const contact = new Contact({
   name: req.body.name,
-  number: req.body.name,
-  birthdate: req.body.name,
-  company: req.body.name
+  number: req.body.number,
+  address: req.body.address,
+  company: req.body.company,
+  birthdate: req.body.birthdate,
+  email: req.body.email,
 });
 
 // Save Contact
