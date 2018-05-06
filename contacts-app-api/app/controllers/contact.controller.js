@@ -15,7 +15,7 @@ const contact = new Contact({
   address: req.body.address,
   company: req.body.company,
   birthdate: req.body.birthdate,
-  email: req.body.email,
+  email: req.body.email
 });
 
 // Save Contact
